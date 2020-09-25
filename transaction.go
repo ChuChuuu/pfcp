@@ -2,6 +2,8 @@ package pfcp
 
 import (
 	"free5gc/lib/pfcp/logger"
+	"github.com/ChuChuuu/MyNet"
+
 	"net"
 	"time"
 )
@@ -28,13 +30,13 @@ type Transaction struct {
 	MessageType    MessageType
 	TxType         TransactionType
 	EventChannel   chan EventType
-	Conn           *net.UDPConn
+	Conn           *MyNet.MyConn //Use UDPConn
 	DestAddr       *net.UDPAddr
 	ConsumerAddr   string
 }
 
 // NewTransaction - create pfcp transaction object
-func NewTransaction(pfcpMSG Message, binaryMSG []byte, Conn *net.UDPConn, DestAddr *net.UDPAddr) (tx *Transaction) {
+func NewTransaction(pfcpMSG Message, binaryMSG []byte, Conn *MyNet.MyConn, DestAddr *net.UDPAddr) (tx *Transaction) {
 	tx = &Transaction{
 		SendMsg:        binaryMSG,
 		SequenceNumber: pfcpMSG.Header.SequenceNumber,

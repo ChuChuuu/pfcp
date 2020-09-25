@@ -2,9 +2,12 @@ package pfcpUdp
 
 import (
 	"fmt"
+	"net"
+
 	"free5gc/lib/pfcp"
 	"free5gc/lib/pfcp/logger"
-	"net"
+
+	"github.com/ChuChuuu/MyNet"
 )
 
 const (
@@ -14,7 +17,7 @@ const (
 
 type PfcpServer struct {
 	Addr string
-	Conn *net.UDPConn
+	Conn *MyNet.MyConn
 	//Consumer Table
 	//Map Consumer IP to its tx table
 	ConsumerTable map[string]pfcp.TxTable
@@ -40,7 +43,7 @@ func (pfcpServer *PfcpServer) Listen() error {
 		Port: PFCP_PORT,
 	}
 
-	conn, err := net.ListenUDP("udp", addr)
+	conn, err := MyNet.ListenUDP("udp", addr)
 	pfcpServer.Conn = conn
 	return err
 }
